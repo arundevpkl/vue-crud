@@ -1,13 +1,11 @@
 <template>
   <div class="mt-3">
-    <router-link :to="'/add'"
-      ><button class="btn btn-success">add</button></router-link
-    >
+  
     <modal-user
       :showModal="showModalNow"
       @closeModal="closeMyModal"
     ></modal-user>
-    <a href="#" @click="toggleModal">now</a>
+    <a href="#" class="btn btn-success" @click="toggleModal">now</a>
     <div></div>
     <div class="list row mt-5">
       <div class="col-12 d-flex">
@@ -25,7 +23,9 @@
         <div class="col-3 align-center">{{ user.email }}</div>
         <div class="col-3 align-center">{{ user.phone }}</div>
         <div class="col-3 align-center">
-         <button class="btn btn-warning">Edit</button>
+          <router-link :to="'/users/' + user.id" class="btn btn-warning"
+            >Edit</router-link
+          >
         </div>
         <hr />
       </div>
@@ -35,12 +35,12 @@
 
 <script>
 import UserDataService from "../common/UserDataService";
-import AddUser from "../components/AddUser.vue"
+import AddUser from "../components/AddUser.vue";
 
 export default {
   name: "users-list",
   components: {
-      "modal-user": AddUser,
+    "modal-user": AddUser,
   },
   data() {
     return {

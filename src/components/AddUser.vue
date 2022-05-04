@@ -72,11 +72,13 @@
             >
               Close
             </button>
-               <button 
-               v-on:click="$emit('closeModal')"
-               @click="saveUser" class="btn btn-success">
-                  Submit
-                </button>
+            <button
+              v-on:click="$emit('closeModal')"
+              @click="saveUser"
+              class="btn btn-success"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>
@@ -111,9 +113,10 @@ export default {
         id: null,
         name: "",
         email: "",
-        published: false,
+        phone:""
+      
       },
-      submitted: false,
+   
     };
   },
   methods: {
@@ -121,6 +124,7 @@ export default {
       var data = {
         name: this.user.name,
         email: this.user.email,
+        phone: this.user.phone,
       };
 
       UserDataService.create(data)
@@ -139,10 +143,9 @@ export default {
       this.currentIndex = -1;
     },
     newUser() {
-      this.submitted = false;
       this.user = {};
     },
-     retrieveUsers() {
+    retrieveUsers() {
       UserDataService.getAll()
         .then((response) => {
           this.users = response.data;
@@ -153,8 +156,8 @@ export default {
         });
     },
     mounted() {
-    this.retrieveUsers();
-  },
+      this.retrieveUsers();
+    },
   },
 };
 </script>
