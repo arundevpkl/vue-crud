@@ -1,17 +1,16 @@
 <template>
   <div class="mt-3">
-  
     <modal-user
       :showModal="showModalNow"
       @closeModal="closeMyModal"
     ></modal-user>
-    <a href="#" class="btn btn-success" @click="toggleModal">now</a>
+    <a href="#" class="btn btn-success" @click="toggleModal">Add User</a>
     <div></div>
     <div class="list row mt-5">
       <div class="col-12 d-flex">
-        <div class="col-3">Name:</div>
-        <div class="col-3">Email</div>
-        <div class="col-3">Phone</div>
+        <div class="col-3"><h5>Name</h5></div>
+        <div class="col-3"><h5>Email </h5></div>
+        <div class="col-3"> <h5>Phone</h5></div>
         <div class="col-3"></div>
       </div>
       <div
@@ -19,9 +18,9 @@
         v-for="(user, id) in users"
         :key="id"
       >
-        <div class="col-3 align-center">{{ user.name }}</div>
-        <div class="col-3 align-center">{{ user.email }}</div>
-        <div class="col-3 align-center">{{ user.phone }}</div>
+        <div class="col-3 align-center"> <h6> {{ user.name }}</h6></div>
+        <div class="col-3 align-center"><h6>{{ user.email }}</h6></div>
+        <div class="col-3 align-center"><h6> {{ user.phone }}</h6></div>
         <div class="col-3 align-center">
           <router-link :to="'/users/' + user.id" class="btn btn-warning"
             >Edit</router-link
@@ -63,6 +62,7 @@ export default {
         .then((response) => {
           this.users = response.data;
           console.log(response.data);
+        
         })
         .catch((e) => {
           console.log(e);
@@ -75,33 +75,6 @@ export default {
       this.currentIndex = -1;
     },
 
-    setActiveUser(users, id) {
-      this.currentUser = users;
-      this.currentIndex = users ? id : -1;
-    },
-
-    removeAllTutorials() {
-      UserDataService.deleteAll()
-        .then((response) => {
-          console.log(response.data);
-          this.refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    // searchTitle() {
-    //   TutorialDataService.findByTitle(this.title)
-    //     .then(response => {
-    //       this.tutorials = response.data;
-    //       this.setActiveTutorial(null);
-    //       console.log(response.data);
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
-    // }
   },
   mounted() {
     this.retrieveUsers();
@@ -120,5 +93,9 @@ export default {
 }
 .align-center {
   align-self: center;
+}
+h6{
+    margin:0 ;
+    padding:0 ;
 }
 </style>

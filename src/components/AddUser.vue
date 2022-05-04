@@ -11,7 +11,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">Add User</h5>
             <button
               type="button"
               class="close"
@@ -57,10 +57,6 @@
                     name="phone"
                   />
                 </div>
-
-                <button @click="saveUser" class="btn btn-success">
-                  Submit
-                </button>
               </div>
             </div>
           </div>
@@ -113,10 +109,8 @@ export default {
         id: null,
         name: "",
         email: "",
-        phone:""
-      
+        phone: "",
       },
-   
     };
   },
   methods: {
@@ -141,9 +135,6 @@ export default {
       this.retrieveUsers();
       this.currentUser = null;
       this.currentIndex = -1;
-    },
-    newUser() {
-      this.user = {};
     },
     retrieveUsers() {
       UserDataService.getAll()

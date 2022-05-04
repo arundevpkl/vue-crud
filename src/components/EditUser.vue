@@ -1,45 +1,44 @@
 <template>
   <div v-if="currentUser" class="edit-form">
-    <h4>Edit User</h4>
+    <h4 class="text-center">Edit User</h4>
     <div class="mt-5">
- <form class="">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name"
-          v-model="currentUser.name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email"
-          v-model="currentUser.email"
-        />
-      </div>
-       <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="text" class="form-control" id="phone"
-          v-model="currentUser.phone"
-        />
-      </div>
-
-     
-    </form>
+      <form class="">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            v-model="currentUser.name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            v-model="currentUser.email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone"
+            v-model="currentUser.phone"
+          />
+        </div>
+      </form>
     </div>
-   
-
-    <button class="btn btn-danger mr-2"
-      @click="deleteUser"
-    >
-      Delete
-    </button>
-
-    <button type="submit" class="btn btn-success"
-      @click="updateUser"
-    >
-      Update
-    </button>
+    <div class="text-center">
+      <button class="btn btn-danger mr-2" @click="deleteUser">Delete</button>
+      <button type="submit" class="btn btn-success" @click="updateUser">
+        Update
+      </button>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -50,47 +49,44 @@ export default {
   data() {
     return {
       currentUser: null,
-     
     };
   },
   methods: {
     getUser(id) {
       UserDataService.get(id)
-        .then(response => {
+        .then((response) => {
           this.currentUser = response.data;
           console.log(response.data);
         })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-
-    updateUser() {
-      UserDataService.update(this.currentUser.id, this.currentUser)
-        .then(response => {
-          console.log(response.data);
-          this.$router.push({ name: "users-list" });
-        })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     },
 
     deleteUser() {
       UserDataService.delete(this.currentUser.id)
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           this.$router.push({ name: "users-list" });
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
-    }
+    },
+    updateUser() {
+      UserDataService.update(this.currentUser.id, this.currentUser)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push({ name: "users-list" });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
   mounted() {
-    this.message = '';
     this.getUser(this.$route.params.id);
-  }
+  },
 };
 </script>
 
