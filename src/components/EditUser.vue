@@ -1,42 +1,48 @@
 <template>
-  <div v-if="currentUser" class="edit-form">
-    <h4 class="text-center">Edit User</h4>
-    <div class="mt-5">
-      <form class="">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            v-model="currentUser.name"
-          />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="text"
-            class="form-control"
-            id="email"
-            v-model="currentUser.email"
-          />
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input
-            type="text"
-            class="form-control"
-            id="phone"
-            v-model="currentUser.phone"
-          />
-        </div>
-      </form>
-    </div>
-    <div class="text-center">
-      <button class="btn btn-danger mr-2" @click="deleteUser">Delete</button>
-      <button type="submit" class="btn btn-success" @click="updateUser">
-        Update
-      </button>
+  <div  v-if="currentUser" >
+      <router-link to="/"
+        ><button class="btn btn-secondary">Back</button></router-link
+      >
+    <div class="edit-form">
+      
+      <h4 class="text-center">Edit User</h4>
+      <div class="mt-5">
+        <form class="">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              v-model="currentUser.name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              v-model="currentUser.email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              v-model="currentUser.phone"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-danger mr-2" @click="deleteUser">Delete</button>
+        <button type="submit" class="btn btn-success" @click="updateUser">
+          Update
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -56,7 +62,6 @@ export default {
       UserDataService.get(id)
         .then((response) => {
           this.currentUser = response.data;
-          console.log(response.data);
         })
         .catch((e) => {
           console.log(e);

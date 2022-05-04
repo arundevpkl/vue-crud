@@ -11,7 +11,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add User</h5>
+            <h5 class="modal-title">Modal title</h5>
             <button
               type="button"
               class="close"
@@ -57,6 +57,10 @@
                     name="phone"
                   />
                 </div>
+
+                <button @click="saveUser" class="btn btn-success">
+                  Submit
+                </button>
               </div>
             </div>
           </div>
@@ -68,13 +72,7 @@
             >
               Close
             </button>
-            <button
-              v-on:click="$emit('closeModal')"
-              @click="saveUser"
-              class="btn btn-success"
-            >
-              Submit
-            </button>
+            <button @click="saveUser" class="btn btn-success">Submit</button>
           </div>
         </div>
       </div>
@@ -109,8 +107,9 @@ export default {
         id: null,
         name: "",
         email: "",
-        phone: "",
+        published: false,
       },
+      submitted: false,
     };
   },
   methods: {
@@ -118,14 +117,14 @@ export default {
       var data = {
         name: this.user.name,
         email: this.user.email,
-        phone: this.user.phone,
+        phone: this.user.phone
       };
 
       UserDataService.create(data)
         .then((response) => {
           this.user.id = response.data.id;
-          console.log(response.data);
           this.refreshList();
+          this.$emit("closeModal");
         })
         .catch((e) => {
           console.log(e);
@@ -136,11 +135,13 @@ export default {
       this.currentUser = null;
       this.currentIndex = -1;
     },
+    newUser() {
+      this.user = {};
+    },
     retrieveUsers() {
       UserDataService.getAll()
         .then((response) => {
           this.users = response.data;
-          console.log(response.data);
         })
         .catch((e) => {
           console.log(e);

@@ -32,14 +32,15 @@
   </div>
 </template>
 
+
 <script>
 import UserDataService from "../common/UserDataService";
-import AddUser from "../components/AddUser.vue";
+import AddUser from "../components/AddUser.vue"
 
 export default {
   name: "users-list",
   components: {
-    "modal-user": AddUser,
+      "modal-user": AddUser,
   },
   data() {
     return {
@@ -53,6 +54,7 @@ export default {
   methods: {
     closeMyModal() {
       this.showModalNow = false;
+      this.refreshList()
     },
     toggleModal() {
       this.showModalNow = !this.showModalNow;
@@ -61,8 +63,6 @@ export default {
       UserDataService.getAll()
         .then((response) => {
           this.users = response.data;
-          console.log(response.data);
-        
         })
         .catch((e) => {
           console.log(e);
