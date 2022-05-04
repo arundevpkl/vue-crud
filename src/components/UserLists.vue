@@ -1,6 +1,14 @@
 <template>
   <div class="mt-3">
-   
+    <router-link :to="'/add'"
+      ><button class="btn btn-success">add</button></router-link
+    >
+    <modal-user
+      :showModal="showModalNow"
+      @closeModal="closeMyModal"
+    ></modal-user>
+    <a href="#" @click="toggleModal">now</a>
+    <div></div>
     <div class="list row mt-5">
       <div class="col-12 d-flex">
         <div class="col-3">Name:</div>
@@ -17,7 +25,7 @@
         <div class="col-3 align-center">{{ user.email }}</div>
         <div class="col-3 align-center">{{ user.phone }}</div>
         <div class="col-3 align-center">
-          <button class="btn btn-warning">Edit</button>
+         <button class="btn btn-warning">Edit</button>
         </div>
         <hr />
       </div>
@@ -27,39 +35,80 @@
 
 <script>
 import UserDataService from "../common/UserDataService";
+import AddUser from "../components/AddUser.vue"
+
 export default {
-  name: "tutorials-list",
+  name: "users-list",
+  components: {
+      "modal-user": AddUser,
+  },
   data() {
     return {
       users: [],
       currentUser: null,
       currentIndex: -1,
-      title: ""
+      title: "",
+      showModalNow: false,
     };
   },
   methods: {
-    retrieveTutorials() {
+    closeMyModal() {
+      this.showModalNow = false;
+    },
+    toggleModal() {
+      this.showModalNow = !this.showModalNow;
+    },
+    retrieveUsers() {
       UserDataService.getAll()
-        .then(response => {
+        .then((response) => {
           this.users = response.data;
           console.log(response.data);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     },
-   
+
     refreshList() {
       this.retrieveUsers();
       this.currentUser = null;
       this.currentIndex = -1;
     },
+
+    setActiveUser(users, id) {
+      this.currentUser = users;
+      this.currentIndex = users ? id : -1;
+    },
+
+    removeAllTutorials() {
+      UserDataService.deleteAll()
+        .then((response) => {
+          console.log(response.data);
+          this.refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+
+    // searchTitle() {
+    //   TutorialDataService.findByTitle(this.title)
+    //     .then(response => {
+    //       this.tutorials = response.data;
+    //       this.setActiveTutorial(null);
+    //       console.log(response.data);
+    //     })
+    //     .catch(e => {
+    //       console.log(e);
+    //     });
+    // }
   },
   mounted() {
-    this.retrieveTutorials();
-  }
+    this.retrieveUsers();
+  },
 };
 </script>
+
 <style>
 .list {
   text-align: left;
