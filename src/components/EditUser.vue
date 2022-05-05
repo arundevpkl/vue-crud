@@ -1,10 +1,9 @@
 <template>
-  <div  v-if="currentUser" >
-      <router-link to="/"
-        ><button class="btn btn-secondary">Back</button></router-link
-      >
+  <div v-if="currentUser">
+    <router-link to="/"
+      ><button class="btn btn-secondary">Back</button></router-link
+    >
     <div class="edit-form">
-      
       <h4 class="text-center">Edit User</h4>
       <div class="mt-5">
         <form class="">

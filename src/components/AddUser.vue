@@ -57,10 +57,6 @@
                     name="phone"
                   />
                 </div>
-
-                <button @click="saveUser" class="btn btn-success">
-                  Submit
-                </button>
               </div>
             </div>
           </div>
